@@ -1,0 +1,179 @@
+/* =========================================================
+   style.css — Job Application Tracker
+   Custom styles complementing Tailwind CSS utility classes.
+   Only patterns that Tailwind cannot express cleanly live here.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. FILTER BUTTONS
+   --------------------------------------------------------- */
+.filter-btn {
+  padding: 0.375rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6b7280;
+  background: #f3f4f6;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  color: #2563eb;
+  background-color: #dbeafe;
+}
+
+.filter-btn.active-filter {
+  color: #2563eb;
+  background-color: #eff6ff;
+  border-color: #93c5fd;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------
+   2. STATUS BADGE
+   --------------------------------------------------------- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.badge-applied   { background: #dbeafe; color: #1d4ed8; }
+.badge-interview { background: #ede9fe; color: #6d28d9; }
+.badge-offer     { background: #d1fae5; color: #065f46; }
+.badge-rejected  { background: #fee2e2; color: #b91c1c; }
+
+/* ---------------------------------------------------------
+   3. APPLICATION CARD
+   --------------------------------------------------------- */
+.app-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;         /* rounded-2xl */
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.app-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37,99,235,.09), 0 2px 6px rgba(0,0,0,.06);
+}
+
+/* Left accent bar by status */
+.app-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 1rem 0 0 1rem;
+}
+
+.app-card { position: relative; overflow: hidden; }
+
+.app-card[data-status="Applied"]::before   { background: #3b82f6; }
+.app-card[data-status="Interview"]::before { background: #8b5cf6; }
+.app-card[data-status="Offer"]::before     { background: #10b981; }
+.app-card[data-status="Rejected"]::before  { background: #ef4444; }
+
+/* ---------------------------------------------------------
+   4. METRIC CARD ICON CONTAINER
+   --------------------------------------------------------- */
+.metric-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+}
+
+/* ---------------------------------------------------------
+   5. MODAL OVERLAY & ANIMATION
+   --------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+  backdrop-filter: blur(2px);
+}
+
+.modal-card {
+  animation: modal-in 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(-16px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)     scale(1); }
+}
+
+/* ---------------------------------------------------------
+   6. FORM HELPERS (shared across modal form)
+   --------------------------------------------------------- */
+.form-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.375rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  color: #1f2937;
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+  font-family: inherit;
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,.2);
+}
+
+.form-input.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,.15);
+}
+
+.form-error {
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* ---------------------------------------------------------
+   7. CARD FADE-OUT (deletion animation)
+   --------------------------------------------------------- */
+.card-removing {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0 !important;
+  transform: scale(0.95) !important;
+}
